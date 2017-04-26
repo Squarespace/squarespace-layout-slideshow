@@ -211,6 +211,13 @@ class Slideshow extends LayoutBase {
       return;
     }
     this.startAutoplay();
+
+    // Mouseover and mouseout will mess with the controls click handler if this
+    // is a touch device, so don't bind them in those situations.
+    if ('ontouchstart' in document.documentElement) {
+      return;
+    }
+
     this.on(this.rootNode, 'mouseover', () => {
       this.isInteracting = true;
       this.rootNode.classList.add('interacting');
